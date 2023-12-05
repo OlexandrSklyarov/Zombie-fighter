@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad366d5f9f0514d40a039655b108b55e, type: 3}
+  m_Name: MapConfig
+  m_EditorClassIdentifier: 
+  <StartChankPrefab>k__BackingField: {fileID: 94309448557752488, guid: ec5b36f2946637bffabdcaf08b175f8d,
+    type: 3}
+  <FinishChankPrefab>k__BackingField: {fileID: 5466712441352993476, guid: 2cd36243fcb6b292c80b4912a27f33cc,
+    type: 3}
+  <MapChankPrefab>k__BackingField: {fileID: 2173384601557487142, guid: 064876e3e2c9e0e7e88f9f4a6a021d64,
+    type: 3}
+  <ChankOffset>k__BackingField: 105
