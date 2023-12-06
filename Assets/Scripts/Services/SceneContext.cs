@@ -1,6 +1,7 @@
 using System;
 using AS.Services.Input;
 using SA.Gameplay.Data;
+using SA.Services.ObjectPool;
 using UnityEngine;
 
 namespace SA.Services
@@ -14,6 +15,7 @@ namespace SA.Services
         public ScoreService ScoreService {get; private set;}
         public SceneService SceneService {get; private set;}
         public PlayerStatsService PlayerStatsService {get; private set;}
+        public PoolManager PoolGoService {get; private set;}
         public IInputService InputServices { get; private set; }
 
         private bool _isInit;
@@ -44,6 +46,7 @@ namespace SA.Services
             SceneService = new SceneService();
             PlayerStatsService = new PlayerStatsService();
             InputServices = new TouchInputService();
+            PoolGoService = new PoolManager();
 
             _isInit = true;
         }

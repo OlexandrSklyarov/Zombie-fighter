@@ -5,6 +5,7 @@ using SA.Gameplay.Data;
 using SA.Gameplay.GameCamera;
 using SA.Gameplay.Map;
 using SA.Gameplay.Player;
+using SA.Gameplay.Weapons;
 using SA.Services;
 using UnityEngine;
 
@@ -58,10 +59,24 @@ namespace SA.Gameplay
             var vehicle = GameObject.Instantiate(prefab, _mapController.StartPoint, Quaternion.identity);
 
             var weaponConfig = SceneContext.Instance.MainConfig.WeaponConfigs[PlayerWeapon];            
-
-            vehicle.Init(_inputService, _mapController, weaponConfig);
+            var weapon = GetWeapon(weaponConfig, vehicle.WeaponOrigin);
+            vehicle.Init(_inputService, _mapController, weapon);
 
             return vehicle;
+        }
+
+        private IShootable GetWeapon(WeaponConfig weaponConfig, Transform weaponOrigin)
+        {
+            var weapon = GameObject.Instantiate(weaponConfig.WeaponPrefab, weaponOrigin.position, 
+                weaponOrigin.rotation, weaponOrigin);
+
+            weapon.Init
+            (
+                weaponConfig.Settings, 
+                weaponConfig.ProjectilePrefab,
+                SceneContext.Instance.PoolGoService);  
+
+            return weapon;
         }
 
         public void OnUpdate()

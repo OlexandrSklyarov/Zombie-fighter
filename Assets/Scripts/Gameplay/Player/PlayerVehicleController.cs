@@ -2,34 +2,32 @@ using System;
 using AS.Gameplay.Map;
 using AS.Services.Input;
 using SA.Gameplay.Data;
+using SA.Gameplay.Weapons;
 using UnityEngine;
 
 namespace SA.Gameplay.Player
 {
     public class PlayerVehicleController : MonoBehaviour
     {
+        [field: SerializeField] public Transform WeaponOrigin {get; private set;}
         public float PathProgress {get; private set;}
 
         [SerializeField] private VehicleConfig _vehicleConfig;
-        [SerializeField] private Transform _weaponOrigin;
 
         private IMovedPath _path;
-        private WeaponController _weapon;
+        private IShootable _weapon;
         private bool isCanMove;
 
         public event Action OnCompletedEvent;
         public event Action OnDestroyEvent;
 
-        public void Init(IInputService input, IMovedPath path, WeaponConfig weaponConfig)
+        public void Init(IInputService input, IMovedPath path, IShootable weapon)
         {
             _path = path;
 
             input.OnHorizontalMoveEvent += SetWeaponRotate;
             
-            _weapon = Instantiate(weaponConfig.WeaponPrefab, _weaponOrigin.position, 
-                _weaponOrigin.rotation, _weaponOrigin);
-
-            _weapon.Init(weaponConfig.Settings, weaponConfig.ProjectilePrefab);            
+            _weapon = weapon;          
 
             isCanMove = true;
         }

@@ -44,7 +44,7 @@ GameObject:
   m_Layer: 0
   m_Name: BaseVehicle
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -77,8 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222938214f04c5751847f1793b7eb619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <WeaponOrigin>k__BackingField: {fileID: 6107493053011373927}
   _vehicleConfig: {fileID: 11400000, guid: 5fe930c4003e4116f905b202f5b71f0c, type: 2}
-  _weaponOrigin: {fileID: 6107493053011373927}
 --- !u!1001 &6521591856720201609
 PrefabInstance:
   m_ObjectHideFlags: 0

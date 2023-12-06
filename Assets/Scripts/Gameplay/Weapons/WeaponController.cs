@@ -1,23 +1,29 @@
 using SA.Gameplay.Data;
+using SA.Services.ObjectPool;
 using UnityEngine;
 
-namespace SA.Gameplay.Player
+namespace SA.Gameplay.Weapons
 {
-    public class WeaponController : MonoBehaviour
+    public class WeaponController : MonoBehaviour, IShootable
     {
         [SerializeField] private Transform _firePoint;
 
         private WeaponConfig.FireSettings _settings;
-        private Projectile _projectilePrefab;
         private Quaternion _originWeaponRotation;
-        private float _horizontalAngle;
         private Quaternion _targetRotation;
+        private PoolManager _poolService;
+        private Projectile _projectilePrefab;
+        private float _horizontalAngle;
+        private float _nextShootTime;
 
-        public void Init(WeaponConfig.FireSettings settings, Projectile projectilePrefab)
+        public void Init(WeaponConfig.FireSettings settings, 
+            Projectile projectilePrefab, 
+            PoolManager poolService)
         {
             _settings = settings;
             _projectilePrefab = projectilePrefab;
             _originWeaponRotation = transform.localRotation;
+            _poolService = poolService;
         }        
 
         public void SetRotation(float deltaRotation)
@@ -35,11 +41,19 @@ namespace SA.Gameplay.Player
                 _targetRotation,
                 Time.deltaTime * _settings.RotateSmoothSpeed
             );
+
+            Shoot();
         }
 
         private void Shoot()
         {
-            
+            if (Time.time < _nextShootTime) return;
+
+            var projectile = _poolService.GetProjectile(_projectilePrefab);
+            projectile.transform.SetPositionAndRotation(_firePoint.transform.position, _firePoint.transform.rotation);
+            projectile.Push(_firePoint.transform.forward, _settings.ProjectilePushForce, _settings.LifeTime);
+
+            _nextShootTime = Time.time + _settings.FireCooldown;
         }
     }
 }
