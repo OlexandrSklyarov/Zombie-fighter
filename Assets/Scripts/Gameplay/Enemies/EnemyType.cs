@@ -1,6 +1,6 @@
 namespace SA.Gameplay.Enemies
 {
-    public enum UnitType
+    public enum EnemyType
     {
         Zombi
     }

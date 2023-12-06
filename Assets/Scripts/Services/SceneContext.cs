@@ -17,6 +17,7 @@ namespace SA.Services
         public PlayerStatsService PlayerStatsService {get; private set;}
         public PoolManager PoolGoService {get; private set;}
         public IInputService InputServices { get; private set; }
+        public VfxService VfxService { get; private set; }
 
         private bool _isInit;
 
@@ -47,6 +48,7 @@ namespace SA.Services
             PlayerStatsService = new PlayerStatsService();
             InputServices = new TouchInputService();
             PoolGoService = new PoolManager();
+            VfxService = new VfxService(MainConfig.VfxConfig, PoolGoService);
 
             _isInit = true;
         }

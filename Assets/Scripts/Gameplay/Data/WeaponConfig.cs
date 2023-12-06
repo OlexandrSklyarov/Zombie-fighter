@@ -17,8 +17,9 @@ namespace SA.Gameplay.Data
             [field: SerializeField, Min(1f)] public float ProjectilePushForce {get; private set;} = 5f;
             [field: SerializeField, Min(0.01f)] public float FireCooldown {get; private set;} = 0.5f;
             [field: SerializeField, Min(1f)] public float RotationLimit {get; private set;} = 45f;
+            [field: SerializeField, Min(0.01f)] public float Sensitivity {get; private set;} = 0.1f;
             [field: SerializeField, Min(1f)] public float RotateSmoothSpeed {get; private set;} = 10f;
-            [field: SerializeField, Min(1f)] public float LifeTime {get; private set;} = 3f;
+            [field: SerializeField, Min(1f)] public float LifeTime {get; private set;} = 3f;           
         }
     }
 }

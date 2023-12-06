@@ -10,6 +10,7 @@ namespace SA.Gameplay.Data
         [field: SerializeField] public LevelSettings[] Levels {get; private set;}
         [field: Space, SerializeField] public PlayerVehicleController[] VehiclePrefabs {get; private set;}
         [field: Space, SerializeField] public WeaponConfig[] WeaponConfigs {get; private set;}
+        [field: Space, SerializeField] public VfxConfig VfxConfig {get; private set;}
 
         [Serializable]
         public class LevelSettings

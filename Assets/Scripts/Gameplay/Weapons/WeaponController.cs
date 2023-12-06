@@ -28,7 +28,7 @@ namespace SA.Gameplay.Weapons
 
         public void SetRotation(float deltaRotation)
         {
-            _horizontalAngle += deltaRotation;
+            _horizontalAngle += deltaRotation * _settings.Sensitivity;
             _horizontalAngle = Mathf.Clamp(_horizontalAngle, -_settings.RotationLimit, _settings.RotationLimit);
             _targetRotation = _originWeaponRotation * Quaternion.AngleAxis(_horizontalAngle, Vector3.up);            
         }

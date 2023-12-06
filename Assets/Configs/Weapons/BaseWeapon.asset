@@ -16,7 +16,8 @@ MonoBehaviour:
     <ProjectilePushForce>k__BackingField: 100
     <FireCooldown>k__BackingField: 0.5
     <RotationLimit>k__BackingField: 45
-    <RotateSmoothSpeed>k__BackingField: 2
+    <Sensitivity>k__BackingField: 0.1
+    <RotateSmoothSpeed>k__BackingField: 10
     <LifeTime>k__BackingField: 3
   <WeaponPrefab>k__BackingField: {fileID: -9160766057848920689, guid: 41da3a064984098958e168b37be3ea53,
     type: 3}

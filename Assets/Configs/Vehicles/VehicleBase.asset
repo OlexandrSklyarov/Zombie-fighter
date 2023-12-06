@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 465811480cadf1330b1e35d05eead3f3, type: 3}
   m_Name: VehicleBase
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 50
+  <Speed>k__BackingField: 10
