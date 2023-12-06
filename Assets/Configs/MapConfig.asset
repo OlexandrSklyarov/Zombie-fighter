@@ -19,4 +19,4 @@ MonoBehaviour:
   <MapChankPrefab>k__BackingField: {fileID: 2173384601557487142, guid: 064876e3e2c9e0e7e88f9f4a6a021d64,
     type: 3}
   <ChankOffset>k__BackingField: 210
-  <RoadLength>k__BackingField: 5
+  <RoadLength>k__BackingField: 8

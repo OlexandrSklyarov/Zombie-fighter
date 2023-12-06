@@ -12,19 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fe3c17f817304f6995d30bce42ef4fb, type: 3}
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  <RoadLength>k__BackingField: 5
   <EnemyDensityPerChank>k__BackingField:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: 0.000045776367
+      value: -0.0012207031
+      inSlope: 0.46258673
+      outSlope: 0.46258673
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.17610914
+    - serializedVersion: 3
+      time: 0.5157902
+      value: 0.35423988
+      inSlope: 1.9706252
+      outSlope: 1.9706252
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09233342
+      outWeight: 0.082050994
     - serializedVersion: 3
       time: 1
       value: 1
@@ -37,3 +45,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  <EnemyPrefab>k__BackingField: {fileID: 3713942295310872444, guid: b28c4bdaebddbdd3d87c419fd454037e,
+    type: 3}
+  <SpawnRadius>k__BackingField: 30
+  <MaxUnitCountPerChank>k__BackingField: 20

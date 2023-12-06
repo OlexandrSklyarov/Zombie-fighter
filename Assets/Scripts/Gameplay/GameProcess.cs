@@ -2,6 +2,7 @@ using System;
 using AS.Services.Input;
 using Cysharp.Threading.Tasks;
 using SA.Gameplay.Data;
+using SA.Gameplay.Enemies;
 using SA.Gameplay.GameCamera;
 using SA.Gameplay.Map;
 using SA.Gameplay.Player;
@@ -17,12 +18,14 @@ namespace SA.Gameplay
         private int PlayerVehicle => SceneContext.Instance.PlayerStatsService.CurrentVehicle;
         private int PlayerWeapon => SceneContext.Instance.PlayerStatsService.CurrentWeapon;
         private MapConfig MapConfig => SceneContext.Instance.MainConfig.Levels[CurrentLevel].MapConfig;
+        private LevelConfig LevelConfig => SceneContext.Instance.MainConfig.Levels[CurrentLevel].LevelConfig;
 
         private readonly IInputService _inputService;
         private readonly PlayerVehicleController _playerVehicleController;
         private readonly CameraController _cameraController;
         private readonly MapController _mapController;
         private bool _isGameStarted;
+        private EnemyController _enemyController;
 
         public event Action OnSuccessEvent;
         public event Action OnFailureEvent;
@@ -43,6 +46,9 @@ namespace SA.Gameplay
 
             _cameraController.Init(_playerVehicleController.transform);
             _cameraController.ActiveStartCamera();
+
+            _enemyController = new EnemyController(_mapController, LevelConfig);
+            _enemyController.GenerateEnemies();
         }      
 
         public async UniTask WaitPlayerTapAsync()
@@ -85,6 +91,7 @@ namespace SA.Gameplay
             if (!_isGameStarted) return;
 
             _playerVehicleController.OnUpdate();
+            _enemyController?.OnUpdate();
         }
        
         private void OnFailure()

@@ -30,11 +30,12 @@ namespace SA.Gameplay
 
             _hud.GameplayScreen();
         }
-        
+
+       
         private async UniTask FindHUDAsync()
         {
-            await UniTask.WaitUntil(() => FindObjectOfType<HUDController>() != null);
-            _hud = FindObjectOfType<HUDController>();
+            await UniTask.WaitUntil(() => FindFirstObjectByType<HUDController>() != null);
+            _hud = FindFirstObjectByType<HUDController>();
         }        
 
         private void Update() => _gameProcess?.OnUpdate();

@@ -1,5 +1,7 @@
 using System;
 using SA.Gameplay.Units;
+using SA.Gameplay.Vfx;
+using SA.Services;
 using SA.Services.ObjectPool;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -10,6 +12,8 @@ namespace SA.Gameplay.Enemies
     public class EnemyUnit : MonoBehaviour, IPoolable<EnemyUnit>, IDamageble
     {
         [field: SerializeField] public EnemyType Type {get; private set;}
+
+        [SerializeField] private VfxType _vfxType;
 
         private IObjectPool<EnemyUnit> _pool;
         private HealthComponent _health;
@@ -41,8 +45,17 @@ namespace SA.Gameplay.Enemies
 
         private void Death()
         {
-            Debug.Log("Vfx");
+            PlayVfx();
             _pool.Release(this);
+        }
+
+        private void PlayVfx()
+        {
+            SceneContext.Instance.VfxService.Play(transform.position, _vfxType);
+        }
+
+        public void OnUpdate()
+        {
         }
     }
 }

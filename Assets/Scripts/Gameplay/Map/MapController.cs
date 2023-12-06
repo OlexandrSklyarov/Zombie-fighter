@@ -13,7 +13,7 @@ namespace SA.Gameplay.Map
 
         private Transform _world;
         private MapConfig _config;
-        private List<MapChank> _chanks;
+        private List<MapChank> _chanks = new();
         private StartChank _startChank;
         private FinishChank _finishChank;
 
@@ -33,6 +33,8 @@ namespace SA.Gameplay.Map
             {
                 var chank = GameObject.Instantiate(_config.MapChankPrefab, lastPosition, Quaternion.identity, _world);
                 lastPosition = _world.position + Vector3.forward * (i+1) * _config.ChankOffset;
+
+                _chanks.Add(chank);
             }
 
             _finishChank = GameObject.Instantiate(_config.FinishChankPrefab, lastPosition, Quaternion.identity, _world);

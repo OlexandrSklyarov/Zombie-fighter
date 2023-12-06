@@ -18,7 +18,9 @@ namespace SA.Gameplay.Units
 
         [SerializeField] private int _startHP = 10;
         [SerializeField] private Image _fastBar;
-        [SerializeField] private Image _slowBar;       
+        [SerializeField] private Image _slowBar;  
+
+        private Tween _barTween;     
 
         private int _currentHP;
 
@@ -28,8 +30,15 @@ namespace SA.Gameplay.Units
         {
             var value = (float)_currentHP / _startHP;
 
-            _fastBar.transform.DOScaleX(value, 1f)
+            _barTween.Complete();
+
+            _barTween = _fastBar.transform.DOScaleX(value, 1f)
                 .OnComplete(() => _slowBar.transform.DOScaleX(value, 1f));
+        }
+
+        private void OnDisable() 
+        {
+            _barTween?.Kill();
         }
     }
 }

@@ -1,18 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MapChank : MonoBehaviour
+namespace SA.Gameplay.Map
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MapChank : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [field: SerializeField] public Transform Center {get; private set;}
     }
 }

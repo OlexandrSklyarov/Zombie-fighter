@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
-  _vfx: {fileID: 0}
+  _vfx: {fileID: 843044643783877919}
   _destroyDelay: 2
 --- !u!1001 &7859075876240286769
 PrefabInstance:
@@ -151,6 +151,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd8fbe443228a024e98662006cc64dca, type: 3}
+--- !u!198 &843044643783877919 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7395494968920129838, guid: cd8fbe443228a024e98662006cc64dca,
+    type: 3}
+  m_PrefabInstance: {fileID: 7859075876240286769}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1569094395162119036 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8707570066265550669, guid: cd8fbe443228a024e98662006cc64dca,
