@@ -16,12 +16,13 @@ namespace SA.Gameplay
         private int CurrentLevel => SceneContext.Instance.PlayerStatsService.CurrentLevel;
         private int PlayerVehicle => SceneContext.Instance.PlayerStatsService.CurrentVehicle;
         private int PlayerWeapon => SceneContext.Instance.PlayerStatsService.CurrentWeapon;
+        private MapConfig MapConfig => SceneContext.Instance.MainConfig.Levels[CurrentLevel].MapConfig;
 
         private readonly IInputService _inputService;
         private readonly PlayerVehicleController _playerVehicleController;
         private readonly CameraController _cameraController;
         private readonly MapController _mapController;
-        private bool _isStartGame;
+        private bool _isGameStarted;
 
         public event Action OnSuccessEvent;
         public event Action OnFailureEvent;
@@ -30,7 +31,7 @@ namespace SA.Gameplay
         {
             _cameraController = cameraController;
             
-            _mapController = new MapController(_startWorld, GetMapConfig());  
+            _mapController = new MapController(_startWorld, MapConfig);  
             _mapController.Generate(); 
 
             _inputService = SceneContext.Instance.InputServices;
@@ -46,7 +47,7 @@ namespace SA.Gameplay
 
         public async UniTask WaitPlayerTapAsync()
         {
-            await UniTask.WaitUntil(() => _isStartGame);
+            await UniTask.WaitUntil(() => _isGameStarted);
 
             _cameraController.ActiveFollowCamera();
 
@@ -81,16 +82,11 @@ namespace SA.Gameplay
 
         public void OnUpdate()
         {
-            if (!_isStartGame) return;
+            if (!_isGameStarted) return;
 
             _playerVehicleController.OnUpdate();
         }
-
-        private MapConfig GetMapConfig()
-        {
-            return SceneContext.Instance.MainConfig.Levels[CurrentLevel].MapConfig;
-        }
-
+       
         private void OnFailure()
         {
             StopGame();
@@ -111,8 +107,8 @@ namespace SA.Gameplay
             OnSuccessEvent?.Invoke();
         }        
 
-        private void StartGame() => _isStartGame = true;
+        private void StartGame() => _isGameStarted = true;
 
-        private void StopGame() => _isStartGame = false;
+        private void StopGame() => _isGameStarted = false;
     }
 }
