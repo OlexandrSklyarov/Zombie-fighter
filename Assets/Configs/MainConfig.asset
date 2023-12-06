@@ -17,3 +17,7 @@ MonoBehaviour:
       type: 2}
     <LevelConfig>k__BackingField: {fileID: 11400000, guid: 51b106291fe431d4bb687bd2c52a3cc2,
       type: 2}
+  <VehiclePrefabs>k__BackingField:
+  - {fileID: 1520154125590898845, guid: a478e50987a23a4dea5917c2e4daba98, type: 3}
+  <WeaponConfigs>k__BackingField:
+  - {fileID: 11400000, guid: 9c8a7fedac5ba9eac8cde167e04abec7, type: 2}

@@ -1,43 +1,58 @@
 using SA.Gameplay.UI;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-using SA.Services;
-using SA.Gameplay.Data;
-using SA.Gameplay.Map;
+using SA.Gameplay.GameCamera;
 
 namespace SA.Gameplay
 {
     public class GameStarter : MonoBehaviour
     {
-        [SerializeField] private Transform _world;
+        [SerializeField] private CameraController _cameraController;
+        [Space, SerializeField] private Transform _startWorld;
 
         private HUDController _hud;
         private GameProcess _gameProcess;
 
         private async void Start()
         {
-            await FindHUD();    
-
-            var mapController = new MapController(_world.position, GetMapConfig());  
-            mapController.Generate(); 
+            await FindHUDAsync();            
 
             _gameProcess = new GameProcess
             (
-
+                _cameraController,
+                _startWorld
             );    
-        }
 
-        private MapConfig GetMapConfig()
-        {
-            var context = SceneContext.Instance;
-            var level = context.PlayerStatsService.CurrentLevel;
-            return context.MainConfig.Levels[level].MapConfig;
-        }
+            _gameProcess.OnSuccessEvent += Win;
+            _gameProcess.OnFailureEvent += Loss;
 
-        private async UniTask FindHUD()
+            await _gameProcess.WaitPlayerTapAsync();
+
+            _hud.GameplayScreen();
+        }
+        
+        private async UniTask FindHUDAsync()
         {
             await UniTask.WaitUntil(() => FindObjectOfType<HUDController>() != null);
             _hud = FindObjectOfType<HUDController>();
         }        
+
+        private void Update() => _gameProcess?.OnUpdate();
+
+        private void Loss()
+        {
+            _gameProcess.OnSuccessEvent -= Win;
+            _gameProcess.OnFailureEvent -= Loss;
+
+            _hud.LoseScreen();
+        }
+
+        private void Win()
+        {
+            _gameProcess.OnSuccessEvent -= Win;
+            _gameProcess.OnFailureEvent -= Loss;
+
+            _hud.WinScreen();
+        }
     }
 }

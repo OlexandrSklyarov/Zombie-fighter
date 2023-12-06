@@ -5,6 +5,9 @@ namespace SA.Services
     {
         public int CurrentLevel => 0;
 
+        public int CurrentVehicle => 0;
+
+        public int CurrentWeapon => 0;
 
         public PlayerStatsService()
         {

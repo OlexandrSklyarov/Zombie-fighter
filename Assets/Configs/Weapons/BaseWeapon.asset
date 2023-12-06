@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99af3c94094e687189937c98bafe7de1, type: 3}
+  m_Name: BaseWeapon
+  m_EditorClassIdentifier: 
+  <Settings>k__BackingField:
+    <ProjectilePushForce>k__BackingField: 5
+    <FireCooldown>k__BackingField: 0.5
+    <RotationLimit>k__BackingField: 45
+    <RotateSmoothSpeed>k__BackingField: 2
+  <WeaponPrefab>k__BackingField: {fileID: -9160766057848920689, guid: 41da3a064984098958e168b37be3ea53,
+    type: 3}
+  <ProjectilePrefab>k__BackingField: {fileID: 6555628028879406906, guid: 2ba7b6c32383a1b3ab82d431223c2073,
+    type: 3}
