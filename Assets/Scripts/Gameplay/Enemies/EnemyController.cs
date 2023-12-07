@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SA.Gameplay.Data;
@@ -14,6 +15,7 @@ namespace SA.Gameplay.Enemies
         private readonly PoolManager _poolService;
         private readonly LevelConfig _levelConfig;
         private readonly List<EnemyUnit> _units = new();
+        private bool _isRunning;
 
         public EnemyController(IChankMap map, LevelConfig levelConfig)
         {
@@ -40,10 +42,19 @@ namespace SA.Gameplay.Enemies
                     unit.transform.SetPositionAndRotation(rndPos, rndRot);
 
                     unit.Init();
+                    unit.DestroyEvent += OnUitDestroy;
 
                     _units.Add(unit);
                 }
             }
+
+            _isRunning = true;
+        }
+
+        private void OnUitDestroy(EnemyUnit unit)
+        {
+            unit.DestroyEvent -= OnUitDestroy;
+            _units.Remove(unit);
         }
 
         private int GetUnitCountPerChank(int count, int i)
@@ -69,10 +80,22 @@ namespace SA.Gameplay.Enemies
 
         public void OnUpdate()
         {
+            if (!_isRunning) return;
+
             foreach(var unit in _units.ToList())
             {
                 unit.OnUpdate();
             }
-        }        
+        }
+
+        public void StopEnemies()
+        {
+            _isRunning = false;
+
+            foreach(var unit in _units.ToList())
+            {
+                unit.OnStop();
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
 using System;
-using SA.Gameplay.Units;
+using SA.Gameplay.Data;
+using SA.Gameplay.Enemies.FSM;
+using SA.Gameplay.Health;
 using SA.Gameplay.Vfx;
 using SA.Services;
 using SA.Services.ObjectPool;
@@ -8,36 +10,62 @@ using UnityEngine.Pool;
 
 namespace SA.Gameplay.Enemies
 {
-    [RequireComponent(typeof(CapsuleCollider), typeof(HealthComponent))]
-    public class EnemyUnit : MonoBehaviour, IPoolable<EnemyUnit>, IDamageble
+    [RequireComponent(typeof(HealthComponent), typeof(UnitEngineComponent), typeof(EnemyViewComponent))]
+    public class EnemyUnit : MonoBehaviour, IPoolable<EnemyUnit>, IDamageble, IUnitBrainContext
     {
-        [field: SerializeField] public EnemyType Type {get; private set;}
+        [field: SerializeField] public EnemyType Type {get; private set;}        
+
+        IMovable IUnitBrainContext.Engine => _engine;
+        IAnimation IUnitBrainContext.Animator => _view;
+        ILookSensor IUnitBrainContext.Sensor => _sensor;
+        Transform IUnitBrainContext.MyTransform => transform;
+        float IUnitBrainContext.AttackDistance => _config.AttackDistance;
+        int IUnitBrainContext.Damage => _config.AttackDamage;
 
         [SerializeField] private VfxType _vfxType;
+        [SerializeField] private UnitConfig _config;
+        [SerializeField] private LookSensorComponent _sensor;
 
         private IObjectPool<EnemyUnit> _pool;
         private HealthComponent _health;
+        private EnemyViewComponent _view;
+        private UnitEngineComponent _engine;
+        private UnitBrain _brain;
+
+        private bool _isActive;
+
+        public event Action<EnemyUnit> DestroyEvent;
 
         private void Awake()
         {
             _health = GetComponent<HealthComponent>();
+            _view = GetComponent<EnemyViewComponent>();
+            _engine = GetComponent<UnitEngineComponent>();            
+
+            _brain = new UnitBrain(this);
         }
 
         public void Init()
         {
+            _engine.Init(_config.Speed);
+            _sensor.Init(_config.DetectRadius);
             _health.Restore();
+            _brain.Reset();
+
+            _isActive = true;
         }
 
-        void IPoolable<EnemyUnit>.SetPool(IObjectPool<EnemyUnit> pool)
+        public void OnStop()
         {
-            _pool = pool;
-        }
+            _brain.Stop();
+            _view.Idle();
+        }        
 
         public void ApplyDamage(int damage)
         {
-            _health.Value -= damage;
+            _health.Value -= damage;            
 
-            if (_health.Value <= 0)
+            if (!_health.IsAlive)
             {
                 Death();
             }
@@ -45,7 +73,14 @@ namespace SA.Gameplay.Enemies
 
         private void Death()
         {
+            if (!_isActive) return;
+
+            _isActive = false;
             PlayVfx();
+            _brain.Kill();
+
+            DestroyEvent?.Invoke(this);
+
             _pool.Release(this);
         }
 
@@ -56,6 +91,17 @@ namespace SA.Gameplay.Enemies
 
         public void OnUpdate()
         {
+            _brain?.OnUpdate();
         }
+
+        void IUnitBrainContext.AutoDestroy()
+        {
+            Death();
+        }  
+
+        void IPoolable<EnemyUnit>.SetPool(IObjectPool<EnemyUnit> pool)
+        {
+            _pool = pool;
+        }      
     }
 }

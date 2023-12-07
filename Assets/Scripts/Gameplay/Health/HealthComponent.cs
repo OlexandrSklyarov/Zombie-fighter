@@ -2,7 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 
-namespace SA.Gameplay.Units
+namespace SA.Gameplay.Health
 {
     public class HealthComponent : MonoBehaviour
     {
@@ -16,7 +16,10 @@ namespace SA.Gameplay.Units
             }
         }
 
+        public bool IsAlive => _currentHP > 0;
+
         [SerializeField] private int _startHP = 10;
+        [SerializeField, Min(0.01f)] private float _changeValueAnimationDuration = 0.5f;
         [SerializeField] private Image _fastBar;
         [SerializeField] private Image _slowBar;  
 
@@ -24,7 +27,7 @@ namespace SA.Gameplay.Units
 
         private int _currentHP;
 
-        public void Restore() => _currentHP = _startHP;
+        public void Restore() => _currentHP = _startHP;        
 
         private void ChangeView()
         {
@@ -32,8 +35,8 @@ namespace SA.Gameplay.Units
 
             _barTween.Complete();
 
-            _barTween = _fastBar.transform.DOScaleX(value, 1f)
-                .OnComplete(() => _slowBar.transform.DOScaleX(value, 1f));
+            _barTween = _fastBar.transform.DOScaleX(value, _changeValueAnimationDuration)
+                .OnComplete(() => _slowBar.transform.DOScaleX(value, _changeValueAnimationDuration));
         }
 
         private void OnDisable() 

@@ -15,8 +15,8 @@ namespace SA.Gameplay
     public class GameProcess
     {
         private int CurrentLevel => SceneContext.Instance.PlayerStatsService.CurrentLevel;
-        private int PlayerVehicle => SceneContext.Instance.PlayerStatsService.CurrentVehicle;
-        private int PlayerWeapon => SceneContext.Instance.PlayerStatsService.CurrentWeapon;
+        private int PlayerVehicleID => SceneContext.Instance.PlayerStatsService.CurrentVehicle;
+        private int PlayerWeaponID => SceneContext.Instance.PlayerStatsService.CurrentWeapon;
         private MapConfig MapConfig => SceneContext.Instance.MainConfig.Levels[CurrentLevel].MapConfig;
         private LevelConfig LevelConfig => SceneContext.Instance.MainConfig.Levels[CurrentLevel].LevelConfig;
 
@@ -24,7 +24,7 @@ namespace SA.Gameplay
         private readonly PlayerVehicleController _playerVehicleController;
         private readonly CameraController _cameraController;
         private readonly MapController _mapController;
-        private bool _isGameStarted;
+        private bool _isGameRunning;
         private EnemyController _enemyController;
 
         public event Action OnSuccessEvent;
@@ -34,11 +34,11 @@ namespace SA.Gameplay
         {
             _cameraController = cameraController;
             
+            _inputService = SceneContext.Instance.InputServices;
+            _inputService.OnTapEvent += StartGame;
+
             _mapController = new MapController(_startWorld, MapConfig);  
             _mapController.Generate(); 
-
-            _inputService = SceneContext.Instance.InputServices;
-            _inputService.OnTapEvent += () => StartGame();
 
             _playerVehicleController = CreateVehicle();
             _playerVehicleController.OnCompletedEvent += OnSuccess;
@@ -53,19 +53,17 @@ namespace SA.Gameplay
 
         public async UniTask WaitPlayerTapAsync()
         {
-            await UniTask.WaitUntil(() => _isGameStarted);
+            await UniTask.WaitUntil(() => _isGameRunning);
 
             _cameraController.ActiveFollowCamera();
-
-            Debug.Log("Player tap...");
         } 
 
         private PlayerVehicleController CreateVehicle()
         {
-            var prefab = SceneContext.Instance.MainConfig.VehiclePrefabs[PlayerVehicle];
+            var prefab = SceneContext.Instance.MainConfig.VehiclePrefabs[PlayerVehicleID];
             var vehicle = GameObject.Instantiate(prefab, _mapController.StartPoint, Quaternion.identity);
 
-            var weaponConfig = SceneContext.Instance.MainConfig.WeaponConfigs[PlayerWeapon];            
+            var weaponConfig = SceneContext.Instance.MainConfig.WeaponConfigs[PlayerWeaponID];            
             var weapon = GetWeapon(weaponConfig, vehicle.WeaponOrigin);
             vehicle.Init(_inputService, _mapController, weapon);
 
@@ -88,7 +86,7 @@ namespace SA.Gameplay
 
         public void OnUpdate()
         {
-            if (!_isGameStarted) return;
+            if (!_isGameRunning) return;
 
             _playerVehicleController.OnUpdate();
             _enemyController?.OnUpdate();
@@ -109,13 +107,21 @@ namespace SA.Gameplay
             StopGame();
 
             _playerVehicleController.OnCompletedEvent -= OnSuccess;
-            _playerVehicleController.OnDestroyEvent -= OnFailure;
+            _playerVehicleController.OnDestroyEvent -= OnFailure;            
 
             OnSuccessEvent?.Invoke();
         }        
 
-        private void StartGame() => _isGameStarted = true;
+        private void StartGame() 
+        {
+           _inputService.OnTapEvent -= StartGame; 
+           _isGameRunning = true;
+        } 
 
-        private void StopGame() => _isGameStarted = false;
+        private void StopGame() 
+        {
+            _enemyController?.StopEnemies();
+            _isGameRunning = false;
+        } 
     }
 }

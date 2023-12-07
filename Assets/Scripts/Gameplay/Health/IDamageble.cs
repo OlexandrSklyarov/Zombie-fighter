@@ -1,5 +1,5 @@
 
-namespace SA.Gameplay.Units
+namespace SA.Gameplay.Health
 {
     public interface IDamageble
     {
