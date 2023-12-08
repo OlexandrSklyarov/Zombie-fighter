@@ -47,4 +47,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   <EnemyPrefab>k__BackingField: {fileID: 3713942295310872444, guid: b28c4bdaebddbdd3d87c419fd454037e,
     type: 3}
-  <MaxUnitCountPerChank>k__BackingField: 8
+  <MaxUnitCountPerChank>k__BackingField: 15
