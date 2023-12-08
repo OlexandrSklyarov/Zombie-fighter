@@ -112,8 +112,8 @@ namespace SA.Gameplay
 
         private void StopGame() 
         {
-            _enemyController?.StopEnemies();
             _isGameRunning = false;
+            _enemyController?.StopEnemies();
         } 
     }
 }

@@ -16,7 +16,7 @@ namespace SA.Gameplay
 
         private async void Start()
         {
-            await FindHUDAsync();            
+            await InitHUDAsync();            
 
             _gameProcess = new GameProcess
             (
@@ -37,10 +37,11 @@ namespace SA.Gameplay
         }
 
        
-        private async UniTask FindHUDAsync()
+        private async UniTask InitHUDAsync()
         {
             await UniTask.WaitUntil(() => FindFirstObjectByType<HUDController>() != null);
             _hud = FindFirstObjectByType<HUDController>();
+            _hud.Init();
         }        
 
         private void Update() => _gameProcess?.OnUpdate();
@@ -65,6 +66,8 @@ namespace SA.Gameplay
             _hud.WinScreen();
 
             await WaitPlayerTapAsync();
+
+            SceneContext.Instance.PlayerStatsService.Save();
 
             RestartLevel(); // next level..
         }

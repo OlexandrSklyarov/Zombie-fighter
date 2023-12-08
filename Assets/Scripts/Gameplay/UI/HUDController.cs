@@ -1,49 +1,57 @@
+using System;
+using System.Linq;
 using UnityEngine;
 
 namespace SA.Gameplay.UI
 {
     public class HUDController : MonoBehaviour
     {
-        [SerializeField] private GameObject _startScreen;
-        [SerializeField] private GameObject _gameplayScreen;
-        [SerializeField] private GameObject _winScreen;
-        [SerializeField] private GameObject _loseScreen;
+        [SerializeField] private HudScreen[] _screens;
+
+        private void Awake() 
+        {
+            _screens = GetComponentsInChildren<HudScreen>(true);
+        }
+
+        public void Init() => GetScreen<GameplayScreen>().Init();
 
         public void GameplayScreen()
         {
             HidAll();
-            SetActiveScreen(_gameplayScreen, true);
+            SetActiveScreen(GetScreen<GameplayScreen>(), true);
         }
 
         public void LoseScreen()
         {
             HidAll();
-            SetActiveScreen(_loseScreen, true);
+            SetActiveScreen(GetScreen<LoseScreen>(), true);
         }
 
         public void WinScreen()
         {
             HidAll();
-            SetActiveScreen(_winScreen, true);
+            SetActiveScreen(GetScreen<WinScreen>(), true);
         }
 
         public void StartScreen()
         {
             HidAll();
-            SetActiveScreen(_startScreen, true);
+            SetActiveScreen(GetScreen<StartScreen>(), true);
         }
 
         private void HidAll()
         {
-            SetActiveScreen(_startScreen, false);
-            SetActiveScreen(_gameplayScreen, false);
-            SetActiveScreen(_winScreen, false);
-            SetActiveScreen(_loseScreen, false);
+            Array.ForEach(_screens, x => SetActiveScreen(x, false));
         }
 
-        public void SetActiveScreen(GameObject screen, bool isActive)
+        public void SetActiveScreen(HudScreen screen, bool isActive)
         {
-            screen.SetActive(isActive);
-        }
+            screen.gameObject.SetActive(isActive);
+        }       
+
+        private T GetScreen<T>() where T : HudScreen
+        {
+            return (T)_screens.First(x => x is T);
+        } 
     }
 }

@@ -13,7 +13,8 @@ namespace SA.Gameplay.Enemies
     [RequireComponent(typeof(HealthComponent), typeof(UnitEngineComponent), typeof(EnemyViewComponent))]
     public class EnemyUnit : MonoBehaviour, IPoolable<EnemyUnit>, IDamageble, IUnitBrainContext
     {
-        [field: SerializeField] public EnemyType Type {get; private set;}        
+        [field: SerializeField] public EnemyType Type {get; private set;}    
+        public int KillCost => _config.KillCost;    
 
         IMovable IUnitBrainContext.Engine => _engine;
         IAnimation IUnitBrainContext.Animator => _view;
@@ -58,6 +59,8 @@ namespace SA.Gameplay.Enemies
 
         public void OnStop()
         {
+            if (!_health.IsAlive) return;
+
             _brain.Stop();
             _view.Idle();
         }        
@@ -70,6 +73,7 @@ namespace SA.Gameplay.Enemies
 
             if (!_health.IsAlive)
             {
+                DestroyEvent?.Invoke(this);
                 Death();
             }
         }
@@ -80,9 +84,7 @@ namespace SA.Gameplay.Enemies
 
             _isActive = false;
             PlayVfx();
-            _brain.Kill();
-
-            DestroyEvent?.Invoke(this);
+            _brain.Kill();            
 
             _pool.Release(this);
         }
@@ -94,6 +96,8 @@ namespace SA.Gameplay.Enemies
 
         public void OnUpdate()
         {
+            if (!_isActive) return;
+            
             _brain?.OnUpdate();
         }
 

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using SA.Gameplay.Data;
@@ -55,6 +54,8 @@ namespace SA.Gameplay.Enemies
         {
             unit.DestroyEvent -= OnUitDestroy;
             _units.Remove(unit);
+
+            SceneContext.Instance.PlayerStatsService.AddPoints(unit.KillCost);
         }
 
         private int GetUnitCountPerChank(int count, int i)
@@ -95,6 +96,7 @@ namespace SA.Gameplay.Enemies
             foreach(var unit in _units.ToList())
             {
                 unit.OnStop();
+                unit.DestroyEvent -= OnUitDestroy;
             }
         }
     }

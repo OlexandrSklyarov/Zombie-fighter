@@ -9,5 +9,6 @@ namespace SA.Gameplay.Data
         [field: SerializeField, Min(1f)] public float DetectRadius {get; private set;} = 30f;
         [field: SerializeField, Min(1f)] public float Speed {get; private set;} = 5f;
         [field: SerializeField, Min(1)] public int AttackDamage {get; private set;} = 5;
+        [field: SerializeField, Min(1)] public int KillCost {get; private set;} = 5;
     }
 }

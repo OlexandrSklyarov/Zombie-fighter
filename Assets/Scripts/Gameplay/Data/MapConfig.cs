@@ -10,7 +10,7 @@ namespace SA.Gameplay.Data
         [field: SerializeField] public FinishChank FinishChankPrefab {get; private set;}
         [field: SerializeField] public MapChank MapChankPrefab {get; private set;}
         [field: SerializeField, Min(1f)] public float ChankOffset {get; private set;} = 105f;
-        [field: SerializeField, Min(5)] public int RoadLength {get; private set;} = 5;
+        [field: SerializeField, Min(1)] public int RoadLength {get; private set;} = 5;
     }
 }
 

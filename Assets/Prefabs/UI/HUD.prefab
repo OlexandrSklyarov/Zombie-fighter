@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 3770332424446951759}
   - component: {fileID: 7332449875978860273}
   - component: {fileID: 912166184086979756}
+  - component: {fileID: 4162749060308884124}
   m_Layer: 5
   m_Name: StartScreen
   m_TagString: Untagged
@@ -151,6 +152,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4162749060308884124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358806764079163824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009d2f87d02a143bb800b6a874eb25cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1408003523559614690
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +311,7 @@ GameObject:
   - component: {fileID: 2724671790241950739}
   - component: {fileID: 3072299210394750834}
   - component: {fileID: 9046406327132649353}
+  - component: {fileID: 4632290124212875843}
   m_Layer: 5
   m_Name: WinScreen
   m_TagString: Untagged
@@ -364,6 +378,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4632290124212875843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2419622771016605756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4124682138bd96cad9ff2de7606db171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2659328317812500426
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,6 +884,7 @@ GameObject:
   - component: {fileID: 6237774876039736170}
   - component: {fileID: 7100977220486554404}
   - component: {fileID: 1102201788995246871}
+  - component: {fileID: 4532049316259630313}
   m_Layer: 5
   m_Name: GameplayScreen
   m_TagString: Untagged
@@ -923,6 +950,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4532049316259630313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6097209237916419850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d781216a73cf159b8994b02a66cbe97a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointsText: {fileID: 3318414538127744179}
 --- !u!1 &6590763718147538413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,10 +1191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af1490910e1e8aa6b76d0e3d7f2e68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startScreen: {fileID: 1358806764079163824}
-  _gameplayScreen: {fileID: 6097209237916419850}
-  _winScreen: {fileID: 2419622771016605756}
-  _loseScreen: {fileID: 7609277458439670771}
 --- !u!1 &7310117520057173607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,6 +1280,7 @@ GameObject:
   - component: {fileID: 5846438616208428847}
   - component: {fileID: 4407384067008448688}
   - component: {fileID: 7124837212749654390}
+  - component: {fileID: 4338658395244576299}
   m_Layer: 5
   m_Name: LoseScreen
   m_TagString: Untagged
@@ -1310,6 +1347,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4338658395244576299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609277458439670771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41431005f14f8dc098fef6641a8ea012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7761832969631297197
 GameObject:
   m_ObjectHideFlags: 0
