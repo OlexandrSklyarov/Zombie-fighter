@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyUnitConfig
   m_EditorClassIdentifier: 
   <AttackDistance>k__BackingField: 11
-  <DetectRadius>k__BackingField: 110
+  <DetectRadius>k__BackingField: 90
   <Speed>k__BackingField: 12
   <AttackDamage>k__BackingField: 5
   <KillCost>k__BackingField: 5
