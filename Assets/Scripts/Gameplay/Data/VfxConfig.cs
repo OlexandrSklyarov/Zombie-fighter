@@ -7,6 +7,6 @@ namespace SA.Gameplay.Data
     
     public class VfxConfig : ScriptableObject
     {
-        [field: SerializeField] public VfxItem[] Items {get; private set;}        
+        [field: SerializeField] public VfxItem[] Items {get; private set;}         
     }
 }

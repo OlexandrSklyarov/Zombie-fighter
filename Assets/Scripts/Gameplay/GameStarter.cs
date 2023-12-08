@@ -54,9 +54,8 @@ namespace SA.Gameplay
 
             await WaitPlayerTapAsync();
 
-            SceneContext.Instance.PoolGoService.Clear();
-            SceneContext.Instance.SceneService.LoadGame();
-        }
+            RestartLevel();
+        }        
 
         private async void Win()
         {
@@ -67,6 +66,11 @@ namespace SA.Gameplay
 
             await WaitPlayerTapAsync();
 
+            RestartLevel(); // next level..
+        }
+
+        private static void RestartLevel()
+        {
             SceneContext.Instance.PoolGoService.Clear();
             SceneContext.Instance.SceneService.LoadGame();
         }
