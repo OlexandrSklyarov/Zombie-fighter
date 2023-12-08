@@ -38,7 +38,10 @@ namespace SA.Gameplay.Health
             _barTween.Complete();
 
             _barTween = _fastBar.transform.DOScaleX(value, _changeValueAnimationDuration)
-                .OnComplete(() => _slowBar.transform.DOScaleX(value, _changeValueAnimationDuration));
+                .SetLink(_fastBar.gameObject)
+                .OnComplete(() => 
+                    _slowBar.transform.DOScaleX(value, _changeValueAnimationDuration)
+                    .SetLink(_slowBar.gameObject));
         }
 
         private void OnDisable() 

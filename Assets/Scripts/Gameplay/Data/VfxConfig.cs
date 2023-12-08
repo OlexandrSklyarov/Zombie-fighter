@@ -9,4 +9,4 @@ namespace SA.Gameplay.Data
     {
         [field: SerializeField] public VfxItem[] Items {get; private set;}         
     }
-}
+ }

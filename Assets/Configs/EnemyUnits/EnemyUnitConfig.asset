@@ -15,4 +15,4 @@ MonoBehaviour:
   <AttackDistance>k__BackingField: 10
   <DetectRadius>k__BackingField: 110
   <Speed>k__BackingField: 12
-  <AttackDamage>k__BackingField: 2
+  <AttackDamage>k__BackingField: 5

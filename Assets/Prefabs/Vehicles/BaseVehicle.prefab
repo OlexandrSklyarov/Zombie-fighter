@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363aa46d970be236d9f476a19952041c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startHP: 10
+  _startHP: 100
   _changeValueAnimationDuration: 0.5
   _fastBar: {fileID: 2070404213150568177}
   _slowBar: {fileID: 7553157134766868923}

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BaseWeapon
   m_EditorClassIdentifier: 
   <Settings>k__BackingField:
-    <ProjectilePushForce>k__BackingField: 100
+    <ProjectilePushForce>k__BackingField: 200
     <FireCooldown>k__BackingField: 0.3
     <RotationLimit>k__BackingField: 45
-    <Sensitivity>k__BackingField: 0.31
-    <RotateSmoothSpeed>k__BackingField: 7
+    <Sensitivity>k__BackingField: 0.2
+    <RotateSmoothSpeed>k__BackingField: 8
     <LifeTime>k__BackingField: 3
   <WeaponPrefab>k__BackingField: {fileID: -9160766057848920689, guid: 41da3a064984098958e168b37be3ea53,
     type: 3}
