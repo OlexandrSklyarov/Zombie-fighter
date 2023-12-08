@@ -10,8 +10,7 @@ namespace SA.Gameplay.Enemies.FSM.States
         }
 
         public override void OnEnter()
-        {
-            _context.Animator.Idle();
+        {            
         }
 
         public override void OnExit()

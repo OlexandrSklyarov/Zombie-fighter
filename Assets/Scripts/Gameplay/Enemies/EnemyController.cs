@@ -29,12 +29,12 @@ namespace SA.Gameplay.Enemies
 
             for (int i = 0; i < chankCount; i++)
             {
-                var center = _map.Chanks.ElementAt(i).Center.position;
+                var chank = _map.Chanks.ElementAt(i);
                 int unitsCount = GetUnitCountPerChank(chankCount, i);
 
                 for (int x = 0; x < unitsCount; x++)
                 {
-                    var rndPos = GetRandomPosition(center);
+                    var rndPos = GetRandomPosition(chank.Center.position, chank.Bounce);
                     var rndRot = GetRandomRotation();
 
                     var unit = _poolService.GetUnit(_levelConfig.EnemyPrefab);
@@ -72,11 +72,18 @@ namespace SA.Gameplay.Enemies
             return Quaternion.AngleAxis(UnityEngine.Random.Range(0f, 360f), Vector3.up);
         }
 
-        private Vector3 GetRandomPosition(Vector3 center)
+        private Vector3 GetRandomPosition(Vector3 center, Vector2 areaBounce)
         {
-            var pos = UnityEngine.Random.insideUnitSphere * _levelConfig.SpawnRadius;
-            pos.y = 0f;
-            return pos + center;
+            areaBounce *= 0.5f;
+
+            var pos = new Vector3
+            (
+                UnityEngine.Random.Range(-areaBounce.x, areaBounce.x),
+                0f,
+                UnityEngine.Random.Range(-areaBounce.y, areaBounce.y)
+            );
+
+            return center + pos;
         }
 
         public void OnUpdate()

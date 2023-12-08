@@ -29,7 +29,7 @@ namespace SA.Gameplay.Map
             
             var lastPosition = _world.position + Vector3.forward * _config.ChankOffset;
 
-            for (int i = 0; i < _config.RoadLength; i++)
+            for (int i = 0; i < _config.ChankCount; i++)
             {
                 var chank = GameObject.Instantiate(_config.MapChankPrefab, lastPosition, Quaternion.identity, _world);
                 lastPosition = _world.position + Vector3.forward * (i+1) * _config.ChankOffset;

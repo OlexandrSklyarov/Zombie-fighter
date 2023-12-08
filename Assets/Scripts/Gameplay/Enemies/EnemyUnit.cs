@@ -60,9 +60,8 @@ namespace SA.Gameplay.Enemies
         public void OnStop()
         {
             if (!_health.IsAlive) return;
-
-            _brain.Stop();
-            _view.Idle();
+            
+            _brain?.Stop();
         }        
 
         public void ApplyDamage(int damage)
@@ -97,7 +96,7 @@ namespace SA.Gameplay.Enemies
         public void OnUpdate()
         {
             if (!_isActive) return;
-            
+
             _brain?.OnUpdate();
         }
 
