@@ -4,5 +4,6 @@ namespace SA.Gameplay.Weapons
     {
         void OnUpdate();
         void SetRotation(float deltaRotation);
+        void SwitchShoot();
     }
 }

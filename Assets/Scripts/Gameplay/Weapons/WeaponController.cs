@@ -15,6 +15,7 @@ namespace SA.Gameplay.Weapons
         private Projectile _projectilePrefab;
         private float _horizontalAngle;
         private float _nextShootTime;
+        private bool _isCanShoot;
 
         public void Init(WeaponConfig.FireSettings settings, 
             Projectile projectilePrefab, 
@@ -47,6 +48,7 @@ namespace SA.Gameplay.Weapons
 
         private void Shoot()
         {
+            if (!_isCanShoot) return;
             if (Time.time < _nextShootTime) return;
 
             var projectile = _poolService.GetProjectile(_projectilePrefab);
@@ -54,6 +56,11 @@ namespace SA.Gameplay.Weapons
             projectile.Push(_firePoint.transform.forward, _settings.ProjectilePushForce, _settings.LifeTime);
 
             _nextShootTime = Time.time + _settings.FireCooldown;
+        }
+
+        public void SwitchShoot()
+        {
+            _isCanShoot = !_isCanShoot;
         }
     }
 }

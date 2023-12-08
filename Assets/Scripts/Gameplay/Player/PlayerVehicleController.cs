@@ -3,6 +3,7 @@ using AS.Gameplay.Map;
 using AS.Services.Input;
 using SA.Gameplay.Data;
 using SA.Gameplay.Health;
+using SA.Gameplay.Map;
 using SA.Gameplay.Weapons;
 using UnityEngine;
 
@@ -115,6 +116,14 @@ namespace SA.Gameplay.Player
                 var rb = p.gameObject.AddComponent<Rigidbody>();
                 rb.AddExplosionForce(500f, transform.position, 100f);
             });
+        }
+
+        private void OnTriggerEnter(Collider other) 
+        {
+            if (other.GetComponent<FireSwitcher>())
+            {
+                _weapon.SwitchShoot();
+            }
         }
     }
 }
