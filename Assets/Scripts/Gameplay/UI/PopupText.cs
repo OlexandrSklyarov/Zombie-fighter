@@ -19,10 +19,8 @@ namespace SA.Gameplay.UI
         private float _textAlpha;
         private Color _startColor;
 
-        public void Init(string msg)
+        public void Init(string msg, Color color)
         {
-            var color = _content.color;
-
             color.a = 1f;
             _content.color = color;
             _content.text = msg;

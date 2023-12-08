@@ -58,8 +58,9 @@ namespace SA.Gameplay.Enemies
             SceneContext.Instance.PlayerStatsService.AddPoints(unit.KillCost);
             SceneContext.Instance.VfxService.CreatePopupText
             (
-                unit.transform.position + Vector3.up * 3f,
-                $"+{unit.KillCost}"
+                unit.transform.position + Vector3.up * 3f + Vector3.right * UnityEngine.Random.Range(-3f, 3f),
+                $"+{unit.KillCost}",
+                Color.yellow
             );
         }
 

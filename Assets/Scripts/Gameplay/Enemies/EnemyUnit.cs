@@ -66,6 +66,9 @@ namespace SA.Gameplay.Enemies
 
         public void ApplyDamage(int damage)
         {
+            var pos = transform.position + Vector3.up * 4f + Vector3.right * UnityEngine.Random.Range(-2f, 2f);
+            SceneContext.Instance.VfxService.CreatePopupText(pos, $"{damage}", Color.red);
+
             DamageEvent?.Invoke();
             
             _health.Value -= damage;            

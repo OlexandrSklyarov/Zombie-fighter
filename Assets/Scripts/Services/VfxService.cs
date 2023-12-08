@@ -31,11 +31,11 @@ namespace SA.Services
             vfx.Init(position);
         }
 
-        public void CreatePopupText(Vector3 position, string str)
+        public void CreatePopupText(Vector3 position, string str, Color color)
         {
             var vfx = _poolManager.GetPopupText(_config.PopupTextPrefab);
             vfx.transform.position = position;
-            vfx.Init(str);
+            vfx.Init(str, color);
         }
     }
 }
