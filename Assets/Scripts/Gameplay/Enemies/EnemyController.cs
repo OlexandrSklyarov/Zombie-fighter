@@ -56,6 +56,11 @@ namespace SA.Gameplay.Enemies
             _units.Remove(unit);
 
             SceneContext.Instance.PlayerStatsService.AddPoints(unit.KillCost);
+            SceneContext.Instance.VfxService.CreatePopupText
+            (
+                unit.transform.position + Vector3.up * 3f,
+                $"+{unit.KillCost}"
+            );
         }
 
         private int GetUnitCountPerChank(int count, int i)

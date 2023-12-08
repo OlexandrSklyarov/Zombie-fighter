@@ -1,8 +1,8 @@
-using SA.Gameplay.UI;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using SA.Gameplay.GameCamera;
 using SA.Services;
+using SA.Gameplay.UI.HUD;
 
 namespace SA.Gameplay
 {
@@ -65,17 +65,20 @@ namespace SA.Gameplay
 
             _hud.WinScreen();
 
-            await WaitPlayerTapAsync();
+            await WaitPlayerTapAsync();            
 
-            SceneContext.Instance.PlayerStatsService.Save();
+            // next level..
+            var maxLevels = SceneContext.Instance.MainConfig.Levels.Length;
+            SceneContext.Instance.PlayerStatsService.SetNextLevel(maxLevels);
 
-            RestartLevel(); // next level..
+            RestartLevel(); 
         }
 
         private static void RestartLevel()
         {
-            SceneContext.Instance.PoolGoService.Clear();
-            SceneContext.Instance.SceneService.LoadGame();
+            SceneContext.Instance.PlayerStatsService.Save();
+            SceneContext.Instance.PoolGoService.Clear(); 
+            SceneContext.Instance.SceneService.LoadGame();           
         }
 
         public async UniTask WaitPlayerTapAsync()

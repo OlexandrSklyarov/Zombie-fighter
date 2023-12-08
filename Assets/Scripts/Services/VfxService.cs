@@ -30,5 +30,12 @@ namespace SA.Services
             var vfx = _poolManager.GetVFX(prefab);
             vfx.Init(position);
         }
+
+        public void CreatePopupText(Vector3 position, string str)
+        {
+            var vfx = _poolManager.GetPopupText(_config.PopupTextPrefab);
+            vfx.transform.position = position;
+            vfx.Init(str);
+        }
     }
 }

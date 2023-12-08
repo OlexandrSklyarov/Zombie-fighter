@@ -2,7 +2,7 @@ using SA.Services;
 using TMPro;
 using UnityEngine;
 
-namespace SA.Gameplay.UI
+namespace SA.Gameplay.UI.HUD
 {
     public class GameplayScreen : HudScreen
     {

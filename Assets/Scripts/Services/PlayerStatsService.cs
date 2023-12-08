@@ -70,5 +70,13 @@ namespace SA.Services
             CurrentWeapon = data.Weapon;
             CurrentPoints = data.Points;
         }
+
+        public void SetNextLevel(int maxLevels)
+        {
+            CurrentLevel++;
+            CurrentLevel %= maxLevels;
+
+            Debug.Log($"CurrentLevel {CurrentLevel}");
+        }
     }
 }

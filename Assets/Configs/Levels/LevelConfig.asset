@@ -48,4 +48,4 @@ MonoBehaviour:
   <EnemyPrefab>k__BackingField: {fileID: 3713942295310872444, guid: b28c4bdaebddbdd3d87c419fd454037e,
     type: 3}
   <SpawnRadius>k__BackingField: 30
-  <MaxUnitCountPerChank>k__BackingField: 30
+  <MaxUnitCountPerChank>k__BackingField: 5
