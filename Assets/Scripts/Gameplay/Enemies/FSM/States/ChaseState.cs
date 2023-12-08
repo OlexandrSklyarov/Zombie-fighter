@@ -1,4 +1,6 @@
 
+using System;
+
 namespace SA.Gameplay.Enemies.FSM.States
 {
     public class ChaseState : UnitState
@@ -11,6 +13,7 @@ namespace SA.Gameplay.Enemies.FSM.States
         public override void OnEnter()
         {
             _context.Animator.Move();
+            _context.DamageEvent += OnTakeDamage;
         }
 
         public override void OnUpdate()
@@ -37,6 +40,12 @@ namespace SA.Gameplay.Enemies.FSM.States
         public override void OnExit()
         {            
             _context.Animator.Idle();
+            _context.DamageEvent -= OnTakeDamage;
+        }
+
+        private void OnTakeDamage()
+        {
+            _switcher.SwitchState<DamageState>();
         }
     }
 }

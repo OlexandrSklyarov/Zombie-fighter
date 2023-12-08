@@ -35,6 +35,7 @@ namespace SA.Gameplay.Enemies
         private bool _isActive;
 
         public event Action<EnemyUnit> DestroyEvent;
+        public event Action DamageEvent;
 
         private void Awake()
         {
@@ -63,6 +64,8 @@ namespace SA.Gameplay.Enemies
 
         public void ApplyDamage(int damage)
         {
+            DamageEvent?.Invoke();
+            
             _health.Value -= damage;            
 
             if (!_health.IsAlive)

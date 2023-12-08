@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace SA.Gameplay.Enemies.FSM
@@ -10,6 +11,8 @@ namespace SA.Gameplay.Enemies.FSM
         Transform MyTransform {get;}
         float AttackDistance {get;}
         int Damage {get;}
+
+        event Action DamageEvent;
 
         void AutoDestroy();
     }

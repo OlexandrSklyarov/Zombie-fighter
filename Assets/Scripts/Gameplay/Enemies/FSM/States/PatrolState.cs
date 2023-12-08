@@ -1,3 +1,4 @@
+using System;
 using SA.Gameplay.Player;
 
 namespace SA.Gameplay.Enemies.FSM.States
@@ -13,11 +14,18 @@ namespace SA.Gameplay.Enemies.FSM.States
         {
             _context.Animator.Idle();
             _context.Sensor.OnDetectTargetEvent += OnLookTarget;
+            _context.DamageEvent += OnTakeDamage;
         }
 
         public override void OnExit()
         {
-            _context.Sensor.OnDetectTargetEvent -= OnLookTarget;            
+            _context.Sensor.OnDetectTargetEvent -= OnLookTarget;  
+            _context.DamageEvent -= OnTakeDamage;
+        }
+
+        private void OnTakeDamage()
+        {
+            _switcher.SwitchState<DamageState>();
         }
 
         private void OnLookTarget(IPlayerTarget target)

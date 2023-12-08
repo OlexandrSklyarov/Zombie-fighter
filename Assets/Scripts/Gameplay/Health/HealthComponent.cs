@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 namespace SA.Gameplay.Health
 {
@@ -22,6 +23,7 @@ namespace SA.Gameplay.Health
         [SerializeField, Min(0.01f)] private float _changeValueAnimationDuration = 0.5f;
         [SerializeField] private Image _fastBar;
         [SerializeField] private Image _slowBar;  
+        [SerializeField] private GameObject _hpBarRoot;  
 
         private Tween _barTween;     
 
@@ -43,5 +45,7 @@ namespace SA.Gameplay.Health
         {
             _barTween?.Kill();
         }
+
+        public void Hide() => _hpBarRoot.SetActive(false);
     }
 }

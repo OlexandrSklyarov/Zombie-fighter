@@ -108,6 +108,8 @@ namespace SA.Gameplay.Player
         {
             OnDestroyEvent?.Invoke();
 
+            _health.Hide();
+
             Array.ForEach(_parts, p =>
             {
                 p.materials[0].color = Color.black;

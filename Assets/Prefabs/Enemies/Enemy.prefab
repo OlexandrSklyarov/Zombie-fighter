@@ -129,6 +129,7 @@ MonoBehaviour:
   _changeValueAnimationDuration: 0.5
   _fastBar: {fileID: 752199308269467581}
   _slowBar: {fileID: 9086540588345553143}
+  _hpBarRoot: {fileID: 5722247736329201749}
 --- !u!114 &5816753173730759976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 6271260309933812939}
+  _attackTime: 0.52
+  _damageTime: 0.4
 --- !u!1 &7139901523471996854
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,6 +948,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5722247736329201749 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3795137214404181299, guid: b337b7f68f5e4e0b995b5fcc9a355ff3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8917840638993651046}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8359554051738036250 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1135350009504972156, guid: b337b7f68f5e4e0b995b5fcc9a355ff3,

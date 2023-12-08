@@ -6,7 +6,10 @@ namespace AS.Services.Input
 {
     public class TouchInputService : IInputService
     {
+        public bool IsTapScreen => _inputActions.Player.Fire.WasPressedThisFrame();
+
         private DefaultInputActions _inputActions;
+
 
         public event Action OnTapEvent;
         public event Action<float> OnHorizontalMoveEvent;

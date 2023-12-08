@@ -46,5 +46,10 @@ namespace SA.Services.ObjectPool
         {
             return _innerPool.Get();
         }
+
+        public void Clear()
+        {
+            _innerPool.Clear();
+        }
     }
 }

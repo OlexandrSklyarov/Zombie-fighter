@@ -24,8 +24,8 @@ namespace SA.Gameplay
         private readonly PlayerVehicleController _playerVehicleController;
         private readonly CameraController _cameraController;
         private readonly MapController _mapController;
-        private bool _isGameRunning;
         private EnemyController _enemyController;
+        private bool _isGameRunning;
 
         public event Action OnSuccessEvent;
         public event Action OnFailureEvent;
@@ -35,7 +35,6 @@ namespace SA.Gameplay
             _cameraController = cameraController;
             
             _inputService = SceneContext.Instance.InputServices;
-            _inputService.OnTapEvent += StartGame;
 
             _mapController = new MapController(_startWorld, MapConfig);  
             _mapController.Generate(); 
@@ -49,14 +48,7 @@ namespace SA.Gameplay
 
             _enemyController = new EnemyController(_mapController, LevelConfig);
             _enemyController.GenerateEnemies();
-        }      
-
-        public async UniTask WaitPlayerTapAsync()
-        {
-            await UniTask.WaitUntil(() => _isGameRunning);
-
-            _cameraController.ActiveFollowCamera();
-        } 
+        }    
 
         private PlayerVehicleController CreateVehicle()
         {
@@ -112,10 +104,10 @@ namespace SA.Gameplay
             OnSuccessEvent?.Invoke();
         }        
 
-        private void StartGame() 
+        public void StartGame() 
         {
-           _inputService.OnTapEvent -= StartGame; 
            _isGameRunning = true;
+           _cameraController.ActiveFollowCamera();
         } 
 
         private void StopGame() 

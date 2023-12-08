@@ -4,19 +4,46 @@ namespace SA.Gameplay.UI
 {
     public class HUDController : MonoBehaviour
     {
+        [SerializeField] private GameObject _startScreen;
+        [SerializeField] private GameObject _gameplayScreen;
+        [SerializeField] private GameObject _winScreen;
+        [SerializeField] private GameObject _loseScreen;
+
         public void GameplayScreen()
         {
-            Debug.Log("Gameplay Screen");
+            HidAll();
+            SetActiveScreen(_gameplayScreen, true);
         }
 
         public void LoseScreen()
         {
-            Debug.Log("lose screen");
+            HidAll();
+            SetActiveScreen(_loseScreen, true);
         }
 
         public void WinScreen()
         {
-            Debug.Log("win screen");
+            HidAll();
+            SetActiveScreen(_winScreen, true);
+        }
+
+        public void StartScreen()
+        {
+            HidAll();
+            SetActiveScreen(_startScreen, true);
+        }
+
+        private void HidAll()
+        {
+            SetActiveScreen(_startScreen, false);
+            SetActiveScreen(_gameplayScreen, false);
+            SetActiveScreen(_winScreen, false);
+            SetActiveScreen(_loseScreen, false);
+        }
+
+        public void SetActiveScreen(GameObject screen, bool isActive)
+        {
+            screen.SetActive(isActive);
         }
     }
 }

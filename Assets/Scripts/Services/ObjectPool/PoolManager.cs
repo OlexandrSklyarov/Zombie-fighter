@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using SA.Gameplay.Enemies;
 using SA.Gameplay.Vfx;
@@ -13,6 +12,12 @@ namespace SA.Services.ObjectPool
         private readonly Dictionary<ProjectileType, BaseGOPool<Projectile>> _projectilePools = new();
         private readonly Dictionary<VfxType, BaseGOPool<VfxItem>> _vfxPools = new();
 
+        public void Clear()
+        {
+            foreach(var pool in _unitPools) pool.Value.Clear();
+            foreach(var pool in _projectilePools) pool.Value.Clear();
+            foreach(var pool in _vfxPools) pool.Value.Clear();
+        }
 
         public EnemyUnit GetUnit(EnemyUnit prefab, int startPoolCount = 32, int maxPoolAmount = 32)
         {

@@ -16,6 +16,7 @@ namespace SA.Gameplay.Enemies.FSM
                 new PatrolState(this, agentContext),
                 new ChaseState(this, agentContext),
                 new AttackState(this, agentContext),
+                new DamageState(this, agentContext),
                 new DestroyState(this, agentContext),
                 new WaitState(this, agentContext)
             };

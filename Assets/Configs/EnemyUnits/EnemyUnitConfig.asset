@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09dfa4fbfcf621d5abc8917d4dd9942f, type: 3}
   m_Name: EnemyUnitConfig
   m_EditorClassIdentifier: 
-  <AttackDistance>k__BackingField: 7
+  <AttackDistance>k__BackingField: 10
   <DetectRadius>k__BackingField: 110
   <Speed>k__BackingField: 12
   <AttackDamage>k__BackingField: 2

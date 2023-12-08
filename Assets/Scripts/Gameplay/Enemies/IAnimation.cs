@@ -5,6 +5,7 @@ namespace SA.Gameplay.Enemies
     {
         void Idle();
         void Move();
-        void Attack();
+        float Attack();
+        float Damage();
     }
 }

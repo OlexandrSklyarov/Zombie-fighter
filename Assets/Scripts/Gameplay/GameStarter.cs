@@ -2,6 +2,7 @@ using SA.Gameplay.UI;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using SA.Gameplay.GameCamera;
+using SA.Services;
 
 namespace SA.Gameplay
 {
@@ -26,7 +27,11 @@ namespace SA.Gameplay
             _gameProcess.OnSuccessEvent += Win;
             _gameProcess.OnFailureEvent += Loss;
 
-            await _gameProcess.WaitPlayerTapAsync();
+            _hud.StartScreen();
+
+            await WaitPlayerTapAsync();
+
+            _gameProcess.StartGame();
 
             _hud.GameplayScreen();
         }
@@ -40,20 +45,35 @@ namespace SA.Gameplay
 
         private void Update() => _gameProcess?.OnUpdate();
 
-        private void Loss()
+        private async void Loss()
         {
             _gameProcess.OnSuccessEvent -= Win;
             _gameProcess.OnFailureEvent -= Loss;
 
             _hud.LoseScreen();
+
+            await WaitPlayerTapAsync();
+
+            SceneContext.Instance.PoolGoService.Clear();
+            SceneContext.Instance.SceneService.LoadGame();
         }
 
-        private void Win()
+        private async void Win()
         {
             _gameProcess.OnSuccessEvent -= Win;
             _gameProcess.OnFailureEvent -= Loss;
 
             _hud.WinScreen();
+
+            await WaitPlayerTapAsync();
+
+            SceneContext.Instance.PoolGoService.Clear();
+            SceneContext.Instance.SceneService.LoadGame();
         }
+
+        public async UniTask WaitPlayerTapAsync()
+        {
+            await UniTask.WaitUntil(() => SceneContext.Instance.InputServices.IsTapScreen);
+        } 
     }
 }
