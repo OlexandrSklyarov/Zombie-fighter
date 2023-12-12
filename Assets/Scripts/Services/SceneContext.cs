@@ -1,6 +1,7 @@
 using System;
 using AS.Services.Input;
 using SA.Gameplay.Data;
+using SA.Gameplay.GameEntity;
 using SA.Services.ObjectPool;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace SA.Services
         public PoolManager PoolGoService {get; private set;}
         public IInputService InputServices { get; private set; }
         public VfxService VfxService { get; private set; }
+        public IUpdateManager UpdateManager { get; internal set; }
 
         private bool _isInit;
 
@@ -49,6 +51,7 @@ namespace SA.Services
             InputServices = new TouchInputService();
             PoolGoService = new PoolManager();
             VfxService = new VfxService(MainConfig.VfxConfig, PoolGoService);
+            UpdateManager = new GameEntityUpdateManager();
 
             _isInit = true;
         }

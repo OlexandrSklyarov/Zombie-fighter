@@ -1,5 +1,7 @@
 using System;
 using SA.Gameplay.Data;
+using SA.Gameplay.GameEntity;
+using SA.Services;
 using SA.Services.ObjectPool;
 using TMPro;
 using UnityEngine;
@@ -7,8 +9,10 @@ using UnityEngine.Pool;
 
 namespace SA.Gameplay.UI
 {
-    public class PopupText : MonoBehaviour, IPoolable<PopupText>
+    public class PopupText : MonoBehaviour, IPoolable<PopupText>, IGameEntity
     {
+        int IGameEntity.InstanceID => gameObject.GetInstanceID();
+
         [SerializeField] private PopupTextConfig _config;
         [SerializeField] private TextMeshProUGUI _content;
         
@@ -18,6 +22,7 @@ namespace SA.Gameplay.UI
         private Vector3 _currentVelocity;
         private float _textAlpha;
         private Color _startColor;
+
 
         public void Init(string msg, Color color)
         {
@@ -31,19 +36,9 @@ namespace SA.Gameplay.UI
             _currentVelocity = Vector3.up * _config.StartVelocity;            
             
             _isCanMove = true;
-        }
 
-        private void Update()
-        {
-            if (!_isCanMove) return;
-
-            Move();            
-
-            if (_textAlpha <= 0f)
-            {
-                Reclaim();
-            }
-        }
+            SceneContext.Instance.UpdateManager.Add(this);
+        }       
 
         private void Move()
         {
@@ -66,8 +61,22 @@ namespace SA.Gameplay.UI
 
         private void Reclaim() 
         {
+            SceneContext.Instance.UpdateManager.Remove(this);
+
             _isCanMove = false;
             _pool.Release(this);
+        }
+
+        void IGameEntity.OnUpdate()
+        {
+            if (!_isCanMove) return;
+
+            Move();            
+
+            if (_textAlpha <= 0f)
+            {
+                Reclaim();
+            }
         }
     }
 }

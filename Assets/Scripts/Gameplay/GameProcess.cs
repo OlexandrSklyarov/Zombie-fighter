@@ -4,10 +4,12 @@ using Cysharp.Threading.Tasks;
 using SA.Gameplay.Data;
 using SA.Gameplay.Enemies;
 using SA.Gameplay.GameCamera;
+using SA.Gameplay.GameEntity;
 using SA.Gameplay.Map;
 using SA.Gameplay.Player;
 using SA.Gameplay.Weapons;
 using SA.Services;
+using TMPro;
 using UnityEngine;
 
 namespace SA.Gameplay
@@ -71,7 +73,8 @@ namespace SA.Gameplay
             (
                 weaponConfig.Settings, 
                 weaponConfig.ProjectilePrefab,
-                SceneContext.Instance.PoolGoService);  
+                SceneContext.Instance.PoolGoService
+            );  
 
             return weapon;
         }
@@ -82,6 +85,7 @@ namespace SA.Gameplay
 
             _playerVehicleController.OnUpdate();
             _enemyController?.OnUpdate();
+            SceneContext.Instance.UpdateManager?.OnUpdate();
         }
        
         private void OnFailure()
@@ -114,6 +118,7 @@ namespace SA.Gameplay
         {
             _isGameRunning = false;
             _enemyController?.StopEnemies();
+            SceneContext.Instance.UpdateManager?.Clear();
         } 
     }
 }
