@@ -1,3 +1,4 @@
+using System;
 using SA.Gameplay.GameEntity;
 using SA.Gameplay.Health;
 using SA.Gameplay.Vfx;
@@ -18,14 +19,21 @@ namespace SA
 
         [SerializeField] private VfxType _vfxType;
         [SerializeField, Min(1)] private int _damage = 5;
+        [Space, SerializeField] private TrailRenderer _trail;
 
+        private Rigidbody _rb;
         private IObjectPool<Projectile> _pool;
         private Vector3 _pushDirection;
         private float _force;
         private float _autoDestroyTimer;
         private bool _isActive;
         private IUpdateManager _updateManager;
-        private bool _isReleased;       
+        private bool _isReleased;
+
+        private void Awake()
+        {
+            _rb = GetComponent<Rigidbody>();
+        }
 
         public void Push(Vector3 dir, float force, float lifeTime)
         {                 
@@ -50,11 +58,20 @@ namespace SA
 
             SceneContext.Instance.UpdateManager.Remove(this);
             
+            ResetVelocity();
+
+            _trail.Clear();
+            
             _isReleased = true;
             _isActive = false;
             _pool.Release(this);
         }
-             
+
+        private void ResetVelocity()
+        {
+            if (_rb.velocity != Vector3.zero) _rb.velocity = Vector3.zero;
+            if (_rb.angularVelocity != Vector3.zero) _rb.angularVelocity = Vector3.zero;
+        }
 
         private void OnCollisionEnter(Collision other) 
         {
@@ -77,7 +94,8 @@ namespace SA
         {
             if (!_isActive) return;
 
-            transform.position += _pushDirection * _force * Time.deltaTime;  
+            var newPos = transform.position + _pushDirection * _force * Time.deltaTime;  
+            _rb.MovePosition(newPos);
 
             _autoDestroyTimer -= Time.deltaTime;
 
